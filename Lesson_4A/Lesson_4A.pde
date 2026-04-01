@@ -24,36 +24,33 @@ void draw() {
   
   //buttons
   //light cyan button
-  if (dist(200,650,mouseX,mouseY) < 50) {
-    stroke(blueHue);
-  } else {
-    stroke(darkestBlue);
-  }
-  //medium sky blue button
-  if(dist(400,650,mouseX,mouseY) < 50) {
-    stroke(blueHue);
-  } else {
-    stroke(darkestBlue);
-  }
-  //darker blue button
-  if(dist(600,650,mouseX,mouseY) < 50) {
-    stroke(blueHue);
-  }else {
-    stroke(darkestBlue);
-  }
-  
+  tactile(200,650,50);
   fill(lightCyan);
   circle(200, 650, 100);
   
+  //medium sky blue button
+  tactile(400,650,50);
   fill(mediumSkyBlue);
   circle(400, 650, 100);
   
+   //darker blue button
+  tactile(600,650,50);
   fill(darkerBlue);
   circle(600, 650, 100);
   
+  stroke(darkestBlue);
   //indicator
   fill(selectedColor);
   square(200, 100, 400);
+}
+  
+void tactile(int x, int y, int r) {
+  //light cyan button
+  if (dist(x,y,mouseX,mouseY) < r) {
+    stroke(blueHue);
+  } else {
+    stroke(darkestBlue);
+  }
 }
   
 void mouseReleased() {
