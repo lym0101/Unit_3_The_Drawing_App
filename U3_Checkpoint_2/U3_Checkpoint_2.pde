@@ -2,8 +2,6 @@
 //Processing 11
 //Lesson 4E
 
-int toggle;
-
 //Color Pallette
 color lightCyan = #caf0f8;
 color mediumSkyBlue = #90e0ef;
@@ -20,7 +18,6 @@ void setup (){
   strokeWeight(3);
   stroke(darkestBlue);
   selectedColor = darkerBlue;
-  toggle = 1;
 }
 
 void draw() {
@@ -28,41 +25,45 @@ void draw() {
   
   //buttons
   //light cyan button
-  tactile(200,650,50);
+  tactile(75, 650, 100, 150);
   fill(lightCyan);
   rect(75, 650, 150, 100);
   
   //medium sky blue button
-  tactile(400,650,50);
+  tactile(325, 650, 100, 150);
   fill(mediumSkyBlue);
   rect(325, 650, 150, 100);
   
    //darker blue button
-  tactile(600,650,50);
+  tactile(575, 650, 100, 150);
   fill(darkerBlue);
   rect(575, 650, 150, 100);
   
-  stroke(darkestBlue);
   //indicator
+  stroke(darkestBlue);
   fill(selectedColor);
   square(200, 100, 400);
-  if (toggle > 0) {
-    guidelines();
-  }
 }
   
-void tactile(int x, int y, int r) {
-  //light cyan button
-  if (dist(x,y,mouseX,mouseY) < r) {
+void tactile(int x, int y, int w, int h) {
+  if(mouseX > x && mouseX < x+w && mouseY < y+h && mouseY > y) {
     stroke(blueHue);
   } else {
     stroke(darkestBlue);
   }
 }
-  
+
 void mouseReleased() {
-  if(mouseX > 75 && mouseX < 225 && mouseY < 650 && mouseY > 550) {
-    toggle = toggle * -1;
+  if(mouseX > 75 && mouseX < 225 && mouseY < 750 && mouseY > 650) {
+    selectedColor = lightCyan;
+  }
+  
+  if(mouseX > 325 && mouseX < 475 && mouseY < 750 && mouseY > 650) {
+    selectedColor = mediumSkyBlue;
+  }
+  
+  if(mouseX > 575 && mouseX < 725 && mouseY < 750 && mouseY > 650) {
+    selectedColor = darkerBlue;
   }
 }
     
