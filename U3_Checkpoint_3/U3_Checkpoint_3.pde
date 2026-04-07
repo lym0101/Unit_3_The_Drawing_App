@@ -11,25 +11,36 @@ color darkestBlue = #03045e;
 color paleYellow = #ffe6a7;
 color blueHue = #a2d2ff;
 
-float sliderX;
+float sliderY;
+float radius;
 
-void setup (){
-  size(800,500);
+void setup () {
+  size(800,800);
   strokeWeight(5);
   stroke(darkestBlue);
   fill(lightCyan);
-  sliderX = 400;
+  sliderY = 400;
+  radius = 0;
 }
 
 void draw() {
   background(paleYellow);
-  
-  line(100,300,700,300);
-  circle(sliderX,300,50);
+  line(200,100,200,700);
+  circle(200,sliderY,50);
+  circle(500,400,radius/2);
+  radius = map(sliderY,100,700,0,650);
 }
 
 void mouseReleased() {
-  if(mouseX >100 && mouseX < 700 && mouseY > 275 && mouseY < 325){
-    sliderX = mouseX;
-  }
+  controlSlider();
+}
+
+void mouseDragged() {
+  controlSlider();
+}
+
+void controlSlider() {
+   if(mouseX >175 && mouseX < 225 && mouseY > 100 && mouseY < 700){
+    sliderY = mouseY;
+   }
 }
