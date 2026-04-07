@@ -1,6 +1,6 @@
 //Eric Li
 //Processing 11
-//Lesson 4E
+//Checkpoint 2
 
 //Color Pallette
 color lightCyan = #caf0f8;
@@ -14,6 +14,7 @@ color blueHue = #a2d2ff;
 color selectedColor;
 
 void setup (){
+  pixelDensity(1);
   size(800,800);
   strokeWeight(3);
   stroke(darkestBlue);
