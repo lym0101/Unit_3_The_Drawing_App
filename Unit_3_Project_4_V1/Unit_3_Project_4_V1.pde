@@ -37,6 +37,11 @@ void setup () {
 void draw() {
   background(white);
   
+  line(200,100,200,700);
+  circle(200,sliderY,50);
+  circle(500,400,radius/2);
+  radius = map(sliderY,100,700,0,650);
+  
   //buttons
   //light cyan button
   tactile(200,650,50);
@@ -45,7 +50,7 @@ void draw() {
   
   //medium sky blue button
   tactile(400,650,50);
-  fill(mediumSkyBlue);
+  fill(darkerBlue);
   circle(400, 650, 100);
   
    //darker blue button
@@ -71,15 +76,26 @@ void tactile(int x, int y, int r) {
 void mouseReleased() {
   //light cyan button
   if (dist(200,650,mouseX,mouseY) < 50) {
-    selectedColor = lightCyan;
+    selectedColor = pink;
   }
   //medium sky blue button
   if(dist(400,650,mouseX,mouseY) < 50) {
-    selectedColor = mediumSkyBlue;
+    selectedColor = purple;
   }
   //darker blue button
   if(dist(600,650,mouseX,mouseY) < 50) {
-    selectedColor = darkerBlue;
+    selectedColor = black;
   }
+  controlSlider();
+}
+
+void mouseDragged() {
+  controlSlider();
+}
+
+void controlSlider() {
+   if(mouseX >175 && mouseX < 225 && mouseY > 100 && mouseY < 700){
+    sliderY = mouseY;
+   }
 }
   
