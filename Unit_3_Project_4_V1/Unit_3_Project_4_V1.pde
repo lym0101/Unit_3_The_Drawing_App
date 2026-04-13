@@ -14,6 +14,7 @@ color neonCyan = #49f396;
 color neonGreen = #42fa45;
 
 color white = #FFFFFF;
+color grey = #D3D3D3;
 
 // for background and outlines
 color darkestBlue = #03045e;
@@ -25,8 +26,8 @@ float sliderY;
 float radius;
 
 void setup () {
-  size(800,800);
-  strokeWeight(5);
+  size(1000,800);
+  strokeWeight(3);
   stroke(black);
   fill(black);
   sliderY = 400;
@@ -35,23 +36,22 @@ void setup () {
 }
 
 void draw() {
-  background(white);
+  background(grey);
   
-  line(200,100,200,700);
-  circle(200,sliderY,50);
-  circle(500,400,radius/2);
-  radius = map(sliderY,100,700,0,650);
+  fill(paleYellow,180);
+  rect(850,0,150,800);
+  rect(0,650,850,150);
   
   //buttons
   //light cyan button
-  tactile(200,650,50);
+  tactile(880, 40, 30);
   fill(blueHue);
-  circle(200, 650, 100);
+  circle(880, 40, 30);
   
   //medium sky blue button
-  tactile(400,650,50);
+  tactile(930, 40, 30);
   fill(darkerBlue);
-  circle(400, 650, 100);
+  circle(930, 40, 30);
   
    //darker blue button
   tactile(600,650,50);
