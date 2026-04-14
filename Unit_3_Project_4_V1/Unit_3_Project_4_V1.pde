@@ -26,42 +26,84 @@ float sliderY;
 float radius;
 
 void setup () {
+  background(grey);
   size(1000,800);
   strokeWeight(3);
   stroke(black);
   fill(black);
-  sliderY = 400;
+  sliderY = 425;
   radius = 0;
   selectedColor = black;
 }
 
 void draw() {
-  background(grey);
-  
+//the 2 side bars
   fill(paleYellow,180);
   rect(850,0,150,800);
   rect(0,650,850,150);
+
+//the slider (vertical)
+  fill(paleYellow);
+  line(925,350,925,500);
+  circle(925,sliderY,30);
+  circle(925, 580, radius);
+  radius = map(sliderY,350,500,0,70);
   
   //buttons
+  //black button
+  tactile(900, 40, 30);
+  fill(black);
+  circle(900, 40, 30);
+  
+  //white button
+  tactile(960, 40, 30);
+  fill(white);
+  circle(960, 40, 30);
+  
   //light cyan button
-  tactile(880, 40, 30);
-  fill(blueHue);
-  circle(880, 40, 30);
+  tactile(900, 90, 30);
+  fill(brightRed);
+  circle(900, 90, 30);
+  
+  //light cyan button
+  tactile(960, 90, 30);
+  fill(brightRed);
+  circle(960, 90, 30);
   
   //medium sky blue button
-  tactile(930, 40, 30);
-  fill(darkerBlue);
-  circle(930, 40, 30);
+  tactile(960, 140, 30);
+  fill(warmOrange);
+  circle(960, 140, 30);
   
-   //darker blue button
-  tactile(600,650,50);
-  fill(darkerBlue);
-  circle(600, 650, 100);
+  //light cyan button
+  tactile(900, 140, 30);
+  fill(warmYellow);
+  circle(900, 140, 30);
   
-  stroke(darkestBlue);
+  //medium sky blue button
+  tactile(960, 190, 30);
+  fill(pink);
+  circle(960, 190, 30);
+  
+  //light cyan button
+  tactile(900, 190, 30);
+  fill(darkerBlue);
+  circle(900, 190, 30);
+  
+  //medium sky blue button
+  tactile(960, 240, 30);
+  fill(neonCyan);
+  circle(960, 240, 30);
+  
+   //light cyan button
+  tactile(900, 240, 30);
+  fill(neonGreen);
+  circle(900, 240, 30);
+  
   //indicator
+  stroke(darkestBlue);
   fill(selectedColor);
-  square(200, 100, 400);
+  square(910, 300, 40);
 }
   
 void tactile(int x, int y, int r) {
@@ -75,15 +117,27 @@ void tactile(int x, int y, int r) {
   
 void mouseReleased() {
   //light cyan button
-  if (dist(200,650,mouseX,mouseY) < 50) {
-    selectedColor = pink;
+  if (dist(900, 40,mouseX,mouseY) < 30) {
+    selectedColor = black;
   }
   //medium sky blue button
-  if(dist(400,650,mouseX,mouseY) < 50) {
-    selectedColor = purple;
+  if(dist(900, 60,mouseX,mouseY) < 30) {
+    selectedColor = white;
   }
   //darker blue button
-  if(dist(600,650,mouseX,mouseY) < 50) {
+  if(dist(900, 90,mouseX,mouseY) < 30) {
+    selectedColor = black;
+  }
+  //darker blue button
+  if(dist(960, 90,mouseX,mouseY) < 30) {
+    selectedColor = black;
+  }
+  //darker blue button
+  if(dist(900, 140,mouseX,mouseY) < 30) {
+    selectedColor = black;
+  }
+  //darker blue button
+  if(dist(960, 140,mouseX,mouseY) < 30) {
     selectedColor = black;
   }
   controlSlider();
@@ -91,10 +145,11 @@ void mouseReleased() {
 
 void mouseDragged() {
   controlSlider();
+  line(mouseX,mouseY,mouseX+1, mouseY+1);
 }
 
 void controlSlider() {
-   if(mouseX >175 && mouseX < 225 && mouseY > 100 && mouseY < 700){
+   if(mouseX >895 && mouseX < 955 && mouseY > 350 && mouseY < 500){
     sliderY = mouseY;
    }
 }
