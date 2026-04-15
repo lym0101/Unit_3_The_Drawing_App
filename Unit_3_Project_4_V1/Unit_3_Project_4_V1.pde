@@ -118,11 +118,11 @@ void tactile(int x, int y, int r) {
 void mouseReleased() {
   //light cyan button
   if (dist(900, 40,mouseX,mouseY) < 30) {
-    selectedColor = black;
+    selectedColor = white;
   }
   //medium sky blue button
   if(dist(900, 60,mouseX,mouseY) < 30) {
-    selectedColor = white;
+    selectedColor = black;
   }
   //darker blue button
   if(dist(900, 90,mouseX,mouseY) < 30) {
@@ -145,7 +145,8 @@ void mouseReleased() {
 
 void mouseDragged() {
   controlSlider();
-  line(mouseX,mouseY,mouseX+1, mouseY+1);
+  line(pmouseX,pmouseY,mouseX,mouseY);
+  //line(mouseX,mouseY,mouseX+1, mouseY+1);
 }
 
 void controlSlider() {
