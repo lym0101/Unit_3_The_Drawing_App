@@ -10,7 +10,7 @@ color warmYellow = #fed53e;
 color pink = #f943c8;
 color purple = #8b44f8;
 color black = #000000;
-color neonCyan = #49f396;
+color darkCyan = #008B8B;
 color neonGreen = #42fa45;
 
 color white = #FFFFFF;
@@ -24,6 +24,7 @@ color selectedColor;
 
 float sliderY;
 float radius;
+float weight;
 
 void setup () {
   background(grey);
@@ -33,12 +34,14 @@ void setup () {
   fill(black);
   sliderY = 425;
   radius = 0;
+  weight = 0.25;
   selectedColor = black;
 }
 
 void draw() {
 //the 2 side bars
   fill(paleYellow,180);
+  stroke(black);
   rect(850,0,150,800);
   rect(0,650,850,150);
 
@@ -49,6 +52,7 @@ void draw() {
   circle(925, 580, radius);
   radius = map(sliderY,350,500,0,70);
   
+  strokeWeight(3);
   //buttons
   //black button
   tactile(900, 40, 30);
@@ -60,98 +64,122 @@ void draw() {
   fill(white);
   circle(960, 40, 30);
   
-  //light cyan button
+  //bright red button
   tactile(900, 90, 30);
   fill(brightRed);
   circle(900, 90, 30);
   
-  //light cyan button
+  //warm orange button
   tactile(960, 90, 30);
-  fill(brightRed);
+  fill(warmOrange);
   circle(960, 90, 30);
   
-  //medium sky blue button
+  //warm yellow button
   tactile(960, 140, 30);
-  fill(warmOrange);
+  fill(warmYellow);
   circle(960, 140, 30);
   
-  //light cyan button
+  //pink button
   tactile(900, 140, 30);
-  fill(warmYellow);
+  fill(pink);
   circle(900, 140, 30);
   
-  //medium sky blue button
+  //darker blue button
   tactile(960, 190, 30);
-  fill(pink);
+  fill(darkerBlue);
   circle(960, 190, 30);
   
-  //light cyan button
+  //dark cyan button
   tactile(900, 190, 30);
-  fill(darkerBlue);
+  fill(darkCyan);
   circle(900, 190, 30);
   
-  //medium sky blue button
+  //purple button
   tactile(960, 240, 30);
-  fill(neonCyan);
+  fill(purple);
   circle(960, 240, 30);
   
-   //light cyan button
+   //neon green button
   tactile(900, 240, 30);
   fill(neonGreen);
   circle(900, 240, 30);
   
   //indicator
   stroke(darkestBlue);
+  strokeWeight(3);
   fill(selectedColor);
-  square(910, 300, 40);
+  circle(930,295,50);
+  fill(black);
+  circle(930, 295, radius/5);
 }
   
 void tactile(int x, int y, int r) {
-  //light cyan button
   if (dist(x,y,mouseX,mouseY) < r) {
     stroke(blueHue);
+    strokeWeight(3);
   } else {
     stroke(darkestBlue);
+    strokeWeight(3);
   }
 }
   
 void mouseReleased() {
   //light cyan button
   if (dist(900, 40,mouseX,mouseY) < 30) {
-    selectedColor = white;
+    selectedColor = black;
   }
   //medium sky blue button
-  if(dist(900, 60,mouseX,mouseY) < 30) {
-    selectedColor = black;
+  if(dist(960, 40,mouseX,mouseY) < 30) {
+    selectedColor = white;
   }
   //darker blue button
   if(dist(900, 90,mouseX,mouseY) < 30) {
-    selectedColor = black;
+    selectedColor = brightRed;
   }
   //darker blue button
   if(dist(960, 90,mouseX,mouseY) < 30) {
-    selectedColor = black;
+    selectedColor = warmOrange;
   }
   //darker blue button
   if(dist(900, 140,mouseX,mouseY) < 30) {
-    selectedColor = black;
+    selectedColor = pink;
   }
   //darker blue button
   if(dist(960, 140,mouseX,mouseY) < 30) {
-    selectedColor = black;
+    selectedColor = warmYellow;
+  }
+  //darker blue button
+  if(dist(900, 190,mouseX,mouseY) < 30) {
+    selectedColor = darkCyan;
+  }
+  //darker blue button
+  if(dist(960, 190,mouseX,mouseY) < 30) {
+    selectedColor = darkerBlue;
+  }
+  //darker blue button
+  if(dist(900, 240,mouseX,mouseY) < 30) {
+    selectedColor = neonGreen;
+  }
+  //darker blue button
+  if(dist(960, 240,mouseX,mouseY) < 30) {
+    selectedColor = purple;
   }
   controlSlider();
 }
 
 void mouseDragged() {
   controlSlider();
+  stroke(selectedColor);
+  strokeWeight(radius);
   line(pmouseX,pmouseY,mouseX,mouseY);
   //line(mouseX,mouseY,mouseX+1, mouseY+1);
 }
 
 void controlSlider() {
+  strokeWeight(3);
    if(mouseX >895 && mouseX < 955 && mouseY > 350 && mouseY < 500){
     sliderY = mouseY;
+    weight = map(radius/5,350,500,0.25,8);
    }
 }
   
