@@ -2,10 +2,11 @@
 //Processing 11
 //Project 3 V1 Painting APP
 
-pixelDensity(1);
-
 PImage lemon;
 PImage blackHole;
+
+boolean lemonOn;
+boolean blackHoleOn;
 
 //Color Pallette
 color brightRed = #fe3e51;
@@ -27,11 +28,13 @@ color paleYellow = #ffe6ac;
 color blueHue = #a2d2ff;
 color selectedColor;
 
+//prepping variables
 float sliderX;
 float radius;
 float weight;
 
-void setup () {
+void setup() {
+  pixelDensity(1);
   background(grey);
   size(1000,800);
   strokeWeight(3);
@@ -44,10 +47,13 @@ void setup () {
   
   lemon = loadImage("Lemon Transparent.png");
   blackHole = loadImage("Black Hole Transparent.png");
+  
+  lemonOn = false;
+  blackHoleOn = false;
 }
 
 void draw() {
-//the 2 side bars
+//the side bar
   fill(paleYellow,180);
   stroke(black);
   strokeWeight(3);
@@ -89,9 +95,12 @@ void draw() {
   text("Stamps", 925, 545);
   
   // White backgrounds for stamps
-  fill(255);
-  stroke(black);
+  stampOnOff();
+  //fill(255);
+  //stroke(black);
+  tactile2(860, 560, 60, 60);
   rect(860, 560, 60, 60); // left stamp slot
+  tactile2(930, 560, 60, 60);
   rect(930, 560, 60, 60); // right stamp slot
   
   // Draw the images inside the toolbar
@@ -178,6 +187,16 @@ void tactile(int x, int y, int r) {
     strokeWeight(3);
   }
 }
+
+void tactile2(int x, int y, int w, int h) {
+  if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) {
+    stroke(neonGreen);
+    fill(blueHue);
+  } else {
+    stroke(darkestBlue);
+    fill(255);
+  }
+}
   
 void mouseReleased() {
   //light cyan button
@@ -221,14 +240,38 @@ void mouseReleased() {
     selectedColor = purple;
   }
   controlSlider();
+  
+  //stamps
+  if (mouseX > 860 && mouseX > 920 && mouseY > 560 && mouseY < 620) {
+    lemonOn = !lemonOn;
+  }
+  if (mouseX > 930 && mouseX > 990 && mouseY > 560 && mouseY < 620) {
+    blackHoleOn = !blackHoleOn;
+  }
 }
 
 void mouseDragged() {
-  controlSlider();
-  stroke(selectedColor);
-  strokeWeight(radius);
-  line(pmouseX,pmouseY,mouseX,mouseY);
-  //line(mouseX,mouseY,mouseX+1, mouseY+1);
+  if (lemonOn == false) {
+    //squiggly line
+    controlSlider();
+    stroke(selectedColor);
+    strokeWeight(radius);
+    line(pmouseX,pmouseY,mouseX,mouseY);
+    //line(mouseX,mouseY,mouseX+1, mouseY+1);
+  } else {
+    //lemon + black hole drawing
+    image(lemon,mouseX,mouseY,radius,radius);
+  }
+  if (blackHoleOn == false) {
+    //squiggly line
+    controlSlider();
+    stroke(selectedColor);
+    strokeWeight(radius);
+    line(pmouseX,pmouseY,mouseX,mouseY);
+    //line(mouseX,mouseY,mouseX+1, mouseY+1);
+  } else {
+    image(blackHole,mouseX,mouseY,radius,radius);
+  }
 }
 
 void controlSlider() {
@@ -237,5 +280,16 @@ void controlSlider() {
     sliderX = mouseX;
     weight = map(sliderX,870,980,0.25,8);
    }
+}
+
+void stampOnOff() {
+  if (lemonOn == true) {
+    strokeWeight(5);
+    stroke(neonGreen);
+    fill(blueHue);
+} else {
+  strokeWeight(3);
+  stroke(darkestBlue);
+  fill(255);
 }
   
