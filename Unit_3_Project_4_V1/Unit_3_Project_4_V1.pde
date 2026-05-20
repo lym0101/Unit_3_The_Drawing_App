@@ -35,6 +35,7 @@ float weight;
 
 void setup() {
   pixelDensity(1);
+  textAlign(CENTER);
   background(grey);
   size(1000,800);
   strokeWeight(3);
@@ -50,6 +51,8 @@ void setup() {
   
   lemonOn = false;
   blackHoleOn = false;
+  
+  background(white);
 }
 
 void draw() {
@@ -96,10 +99,9 @@ void draw() {
   
   // White backgrounds for stamps
   stampOnOff();
-  //fill(255);
-  //stroke(black);
   tactile2(860, 560, 60, 60);
   rect(860, 560, 60, 60); // left stamp slot
+  stampOnOff1();
   tactile2(930, 560, 60, 60);
   rect(930, 560, 60, 60); // right stamp slot
   
@@ -112,10 +114,11 @@ void draw() {
   stroke(black);
   strokeWeight(3);
   line(870, 490, 980, 490);
-  circle(sliderX, 490, 15);
+  tactile1(sliderX, 490, 25);
+  circle(sliderX, 490, 25);
   radius = map(sliderX,870,980,1,40);
-  
   strokeWeight(3);
+  
   //buttons
   
   //black button
@@ -174,11 +177,44 @@ void draw() {
   fill(selectedColor);
   circle(925,375,50);
   noStroke();
-  fill(black);
+  if (selectedColor == black) {
+    fill(white);
+  } else {
+    fill(black);
+  }
   circle(925, 375, radius);
+  
+  //file save/load/new button
+  tactile2(890, 650, 70, 40);
+  rect(890, 650, 70, 40);
+  textSize(24);
+  fill(0);
+  text("New", 925, 670);
+  
+  tactile2(890, 700, 70, 40);
+  rect(890, 700, 70, 40);
+  textSize(24);
+  fill(0);
+  text("Save", 925, 720);
+  
+  tactile2(890, 750, 70, 40);
+  rect(890, 750, 70, 40);
+  textSize(24);
+  fill(0);
+  text("Load", 925, 770);
 }
   
-void tactile(int x, int y, int r) {
+void tactile(float x, int y, int r) {
+  if (dist(x,y,mouseX,mouseY) < r) {
+    stroke(blueHue);
+    strokeWeight(3);
+  } else {
+    stroke(darkestBlue);
+    strokeWeight(3);
+  }
+}
+
+void tactile1(float x, int y, int r) {
   if (dist(x,y,mouseX,mouseY) < r) {
     stroke(blueHue);
     strokeWeight(3);
@@ -242,35 +278,41 @@ void mouseReleased() {
   controlSlider();
   
   //stamps
-  if (mouseX > 860 && mouseX > 920 && mouseY > 560 && mouseY < 620) {
+  if (mouseX > 860 && mouseX < 920 && mouseY > 560 && mouseY < 620) {
     lemonOn = !lemonOn;
   }
-  if (mouseX > 930 && mouseX > 990 && mouseY > 560 && mouseY < 620) {
+  if (mouseX > 930 && mouseX < 990 && mouseY > 560 && mouseY < 620) {
     blackHoleOn = !blackHoleOn;
+  }
+  
+  //new,save,load buttons
+  
+  //new button
+  if (mouseX > 890 && mouseX < 960 && mouseY > 650 && mouseY < 690) {
+    background(white);
+  }
+  
+  //save button
+  if (mouseX > 890 && mouseX < 960 && mouseY > 700 && mouseY < 740) {
+    selectOutput("Choose a name for your new image file", "saveImage");
+  }
+  
+  //load button
+  if (mouseX > 890 && mouseX < 960 && mouseY > 750 && mouseY < 790) {
+    selectInput("Pick an image to load", "openImage"); 
   }
 }
 
 void mouseDragged() {
-  if (lemonOn == false) {
-    //squiggly line
+  if (lemonOn) {
+    image(lemon, mouseX, mouseY,3*radius,3*radius);
+  } else if (blackHoleOn) {
+    image(blackHole, mouseX, mouseY, 3*radius, 3*radius);
+  } else {
     controlSlider();
     stroke(selectedColor);
     strokeWeight(radius);
-    line(pmouseX,pmouseY,mouseX,mouseY);
-    //line(mouseX,mouseY,mouseX+1, mouseY+1);
-  } else {
-    //lemon + black hole drawing
-    image(lemon,mouseX,mouseY,radius,radius);
-  }
-  if (blackHoleOn == false) {
-    //squiggly line
-    controlSlider();
-    stroke(selectedColor);
-    strokeWeight(radius);
-    line(pmouseX,pmouseY,mouseX,mouseY);
-    //line(mouseX,mouseY,mouseX+1, mouseY+1);
-  } else {
-    image(blackHole,mouseX,mouseY,radius,radius);
+    line(pmouseX, pmouseY, mouseX, mouseY);
   }
 }
 
@@ -287,9 +329,22 @@ void stampOnOff() {
     strokeWeight(5);
     stroke(neonGreen);
     fill(blueHue);
-} else {
-  strokeWeight(3);
-  stroke(darkestBlue);
-  fill(255);
+  } else {
+    strokeWeight(3);
+    stroke(darkestBlue);
+    fill(255);
+    }
+}
+
+void stampOnOff1() {
+  if (blackHoleOn == true) {
+    strokeWeight(5);
+    stroke(neonGreen);
+    fill(blueHue);
+  } else {
+    strokeWeight(3);
+    stroke(darkestBlue);
+    fill(255);
+  }
 }
   
