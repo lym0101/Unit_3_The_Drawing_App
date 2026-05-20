@@ -36,6 +36,7 @@ float weight;
 void setup() {
   pixelDensity(1);
   textAlign(CENTER);
+  imageMode(CENTER);
   background(grey);
   size(1000,800);
   strokeWeight(3);
@@ -106,8 +107,8 @@ void draw() {
   rect(930, 560, 60, 60); // right stamp slot
   
   // Draw the images inside the toolbar
-  image(lemon, 860, 555, 60, 60);
-  image(blackHole, 930, 560, 60, 60);
+  image(lemon, 890, 585, 60, 60);
+  image(blackHole, 960, 590, 60, 60);
   
   //the slider (horizonal)
   fill(black);
@@ -289,7 +290,9 @@ void mouseReleased() {
   
   //new button
   if (mouseX > 890 && mouseX < 960 && mouseY > 650 && mouseY < 690) {
-    background(white);
+    fill(white);
+    noStroke();
+    rect(0,0,849,800);
   }
   
   //save button
@@ -304,9 +307,9 @@ void mouseReleased() {
 }
 
 void mouseDragged() {
-  if (lemonOn) {
+  if (lemonOn == true && mouseX < 850) {
     image(lemon, mouseX, mouseY,3*radius,3*radius);
-  } else if (blackHoleOn) {
+  } else if (blackHoleOn == true && mouseX < 850) {
     image(blackHole, mouseX, mouseY, 3*radius, 3*radius);
   } else {
     controlSlider();
@@ -345,6 +348,25 @@ void stampOnOff1() {
     strokeWeight(3);
     stroke(darkestBlue);
     fill(255);
+  }
+}
+
+void saveImage(File f) {
+  if(f !=null) {
+    PImage canvas = get(71,1,width-71,height-1);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f) {
+  if (f !=null) {
+    //Kludge
+    int n = 0;
+    while (n < 10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic,0,0);
+      n = n + 1;
+    }
   }
 }
   
