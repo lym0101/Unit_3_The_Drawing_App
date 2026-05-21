@@ -4,6 +4,7 @@
 
 PImage lemon;
 PImage blackHole;
+PImage logo;
 
 boolean lemonOn;
 boolean blackHoleOn;
@@ -49,11 +50,15 @@ void setup() {
   
   lemon = loadImage("Lemon Transparent.png");
   blackHole = loadImage("Black Hole Transparent.png");
+  logo = loadImage("paintlogo1.png");
   
   lemonOn = false;
   blackHoleOn = false;
   
   background(white);
+  
+  surface.setIcon(logo);
+  surface.setTitle("Drawer Pro Minimum");
 }
 
 void draw() {
@@ -281,9 +286,11 @@ void mouseReleased() {
   //stamps
   if (mouseX > 860 && mouseX < 920 && mouseY > 560 && mouseY < 620) {
     lemonOn = !lemonOn;
+    blackHoleOn = false;
   }
   if (mouseX > 930 && mouseX < 990 && mouseY > 560 && mouseY < 620) {
     blackHoleOn = !blackHoleOn;
+    lemonOn = false;
   }
   
   //new,save,load buttons
@@ -353,7 +360,7 @@ void stampOnOff1() {
 
 void saveImage(File f) {
   if(f !=null) {
-    PImage canvas = get(71,1,width-71,height-1);
+    PImage canvas = get(0,0,849,800);
     canvas.save(f.getAbsolutePath());
   }
 }
@@ -364,9 +371,8 @@ void openImage(File f) {
     int n = 0;
     while (n < 10) {
       PImage pic = loadImage(f.getPath());
-      image(pic,0,0);
+      image(pic,425,400);
       n = n + 1;
     }
   }
 }
-  
